@@ -107,7 +107,7 @@ class AvianMainnet(AbstractNet):
     ADDRTYPE_P2PKH = 60
     ADDRTYPE_P2SH = 122
     ADDRTYPE_P2SH_ALT = 122
-    MATURE = 60
+    MATURE = 100
     SEGWIT_HRP = ""
     BOLT11_HRP = SEGWIT_HRP
     GENESIS = "000000cdb10fc01df7fba251f2168ef7cd7854b571049db4902c315694461dd0"
@@ -131,7 +131,7 @@ class AvianMainnet(AbstractNet):
         'p2wsh': 0x02aa7ed3,  # Zpub
     }
     XPUB_HEADERS_INV = inv_dict(XPUB_HEADERS)
-    BIP44_COIN_TYPE = 175
+    BIP44_COIN_TYPE = 921
 
     BURN_AMOUNTS = BurnAmounts(
         IssueAssetBurnAmount=500,

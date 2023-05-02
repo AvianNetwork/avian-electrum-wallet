@@ -12,7 +12,7 @@ from .i18n import _
 DOUBLE_PUNCTUATION = "^.*[._]{2,}.*$"
 LEADING_PUNCTUATION = "^[._].*$"
 TRAILING_PUNCTUATION = "^.*[._]$"
-AVIAN_NAMES = "^AVN$|^AVIAN$|^AVIAN$|^#AVN$|^#AVIAN$|^#AVIAN$"
+AVIAN_NAMES = "^RVL$|^AVN$|^AVIAN$|^AVIAN$|^#AVN$|^#AVIAN$|^#AVIAN$"
 
 MAIN_CHECK = "^[A-Z0-9._]{3,}$"
 SUB_CHECK = "^[A-Z0-9._]+$"

@@ -15,7 +15,7 @@ from electrum.avian import int_to_hex, var_int, is_segwit_script_type, is_b58_ad
 from electrum.bip32 import BIP32Node, convert_bip32_intpath_to_strpath
 from electrum.i18n import _
 from electrum.keystore import Hardware_KeyStore
-from electrum.transaction import Transaction, PartialTransaction, PartialTxInput, PartialTxOutput
+from electrum.transaction import SIGHASH, Transaction, PartialTransaction, PartialTxInput, PartialTxOutput
 from electrum.wallet import Standard_Wallet
 from electrum.util import bfh, bh2u, versiontuple, UserFacingException
 from electrum.base_wizard import ScriptTypeNotSupported
@@ -790,7 +790,7 @@ class Ledger_KeyStore(Hardware_KeyStore):
                     singleInput = [chipInputs[inputIndex]]
                     client_ledger.startUntrustedTransaction(False, 0,
                                                             singleInput, redeemScripts[inputIndex], version=tx.version)
-                    inputSignature = client_ledger.untrustedHashSign(inputsPaths[inputIndex], pin, lockTime=tx.locktime)
+                    inputSignature = client_ledger.untrustedHashSign(inputsPaths[inputIndex], pin, lockTime=tx.locktime, sighashType=SIGHASH.ALL_FORKID)
                     inputSignature[0] = 0x30  # force for 1.4.9+
                     my_pubkey = inputs[inputIndex][4]
                     tx.add_signature_to_txin(txin_idx=inputIndex,
@@ -822,10 +822,10 @@ class Ledger_KeyStore(Hardware_KeyStore):
                         if atomic_b.get_value():
                             raise UserWarning()
                         # Sign input with the provided PIN
-                        inputSignature = client_ledger.untrustedHashSign(inputsPaths[inputIndex], pin,
-                                                                         lockTime=tx.locktime)
+                        inputSignature = client_ledger.untrustedHashSign(inputsPaths[inputIndex], pin, lockTime=tx.locktime, sighashType=SIGHASH.ALL_FORKID)
                         inputSignature[0] = 0x30  # force for 1.4.9+
                         my_pubkey = inputs[inputIndex][4]
+
                         tx.add_signature_to_txin(txin_idx=inputIndex,
                                                  signing_pubkey=my_pubkey.hex(),
                                                  sig=inputSignature.hex())
@@ -1006,7 +1006,7 @@ class LedgerPlugin(HW_PluginBase):
         device_id = device_info.device.id_
         client = self.scan_and_create_client_for_device(device_id=device_id, wizard=wizard)
         wizard.run_task_without_blocking_gui(
-            task=lambda: client.get_xpub("m/175'", 'standard'))  # TODO replace by direct derivation once Nano S > 1.1
+            task=lambda: client.get_xpub("m/921'", 'standard'))  # TODO replace by direct derivation once Nano S > 1.1
         return client
 
     def get_xpub(self, device_id, derivation, xtype, wizard):
