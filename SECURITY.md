@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-To report security issues send an email to contat@avn.network.
+To report security issues send an email to contact@avn.network.
 
 The following keys may be used to communicate sensitive information to developers:
 
